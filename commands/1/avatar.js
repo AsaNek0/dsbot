@@ -13,7 +13,7 @@ module.exports = {
         async execute (interaction) {
 
             let user = interaction.options.getUser('user') || interaction.user;
-            let userAvatar = user.displayAvatarURL({ ditamic: true, size: 4096 })
+            let userAvatar = user.displayAvatarURL({ ditamic: true, size: 4096})
 
             const embed = new EmbedBuilder()
                 .setColor('#2B2D31')
