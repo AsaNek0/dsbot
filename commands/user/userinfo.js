@@ -17,7 +17,7 @@ module.exports = {
             let member = await interaction.guild.members.fetch(user.id);
 
             const embed = new EmbedBuilder()
-                .setColor(0xf4b8e4)
+                .setColor(0x74c7ec)
                 .setAuthor({ name: `Информация о пользователе` , url: userAvatar, })
                 .setTitle(`${user.username}`)
                 .setURL(`${userAvatar}`)
@@ -34,9 +34,9 @@ module.exports = {
                 .setTimestamp()
                 
             const embedBot = new EmbedBuilder()
-                .setColor(0xf4b8e4)
+                .setColor(0xcba6f7)
                 .setAuthor({ name: `Информация о Боте` , url: userAvatar, })
-                .setTitle(`${user.username}:bot`)
+                .setTitle(`${user.username} (Бот)`)
                 .setURL(`${userAvatar}`)
                 .setThumbnail(`${userAvatar}`)
                 .addFields(
@@ -50,7 +50,7 @@ module.exports = {
             
             if ( user.bot === true ) 
                 return await interaction.reply({embeds: [embedBot]});
-
+            2
             await interaction.reply({embeds: [embed],});
 
             
