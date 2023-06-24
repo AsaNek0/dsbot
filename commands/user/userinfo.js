@@ -34,7 +34,7 @@ module.exports = {
                 .setTimestamp()
                 
             const embedBot = new EmbedBuilder()
-                .setColor(0xcba6f7)
+                .setColor(0x74c7ec)
                 .setAuthor({ name: `Информация о Боте` , url: userAvatar, })
                 .setTitle(`${user.username} (Бот)`)
                 .setURL(`${userAvatar}`)
