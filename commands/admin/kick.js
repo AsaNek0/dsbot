@@ -9,15 +9,17 @@ module.exports = {
             .setName('user')
             .setDescription('Пользователь')
             .setRequired(true))
+        .addStringOption(option =>
+            option
+                .setName("reason")
+                .setDescription("Причина"))
         .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers),
 
         async execute (interaction) {
 
             const user = interaction.options.getUser('user');
             const member = await interaction.guild.members.fetch(user.id);
-            console.log(
-                GuildMember,
-                user.username);
+            const reason = interaction.options.getString('reason') || "Не указано";
             
             const embedErr = new EmbedBuilder()
                 .setColor(0xf38ba8)
@@ -33,8 +35,8 @@ module.exports = {
                     ephemeral: true
                 });
             
-            await member.kick()
+            await member.kick(reason)
 
-            await interaction.reply({ content: `${user.username}: был исключён` , ephemeral: true });
+            await interaction.reply({ content: `${user.username}: был исключён по причине: ${reason}` , ephemeral: true });
     },
 };

@@ -55,7 +55,7 @@ client.on(Events.InteractionCreate, async(interaction,client) => {
 });
 
 client.once(Events.ClientReady, (c) => {
-    client.user.setPresence({ activities: [{ name: "creator: nekolover.", type: ActivityType.Listening }], status: 'online' });
+    client.user.setPresence({ activities: [{ name: "nekolover.", type: ActivityType.Listening }], status: 'online' });
 });
 
 client.login(token);

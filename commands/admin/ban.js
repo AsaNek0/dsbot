@@ -9,12 +9,17 @@ module.exports = {
             .setName('user')
             .setDescription('Пользователь')
             .setRequired(true))
+        .addStringOption(option =>
+            option
+                .setName("reason")
+                .setDescription("Причина"))
         .setDefaultMemberPermissions(PermissionFlagsBits.BanMembersMembers),
 
         async execute (interaction) {
 
             const user = interaction.options.getUser('user');
             const member = await interaction.guild.members.fetch(user.id);
+            const reason = interaction.options.getString('reason') || "Не указана";
             console.log(
                 GuildMember,
                 user.username);
@@ -33,8 +38,8 @@ module.exports = {
                     ephemeral: true
                 });
             
-            await member.ban()
+            await member.ban(reason)
 
-            await interaction.reply({ content: `${user.username}: был забанен` , ephemeral: true });
+            await interaction.reply({ content: `${user.username}: был забанен по причине: ${reason}` , ephemeral: true });
     },
 };
