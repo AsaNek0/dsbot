@@ -20,6 +20,7 @@ module.exports = {
                 user.username);
             
             const embedErr = new EmbedBuilder()
+                .setColor(Red)
                 .setDescription(`Невозможно исключить ${user.username}: пользователь имеет роль выше вашей.`)
                 .setFooter({text: `Вызвал: ${interaction.user.username}`,
                             iconURL: interaction.user.displayAvatarURL({ ditamic: true, size: 4096 })})
