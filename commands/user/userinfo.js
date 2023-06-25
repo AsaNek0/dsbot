@@ -18,7 +18,7 @@ module.exports = {
 
             const embed = new EmbedBuilder()
                 .setColor(0x74c7ec)
-                .setAuthor({ name: `Информация о пользователе` , url: userAvatar, })
+                .setAuthor({ name: `Информация о пользователе`})
                 .setTitle(`${user.username}`)
                 .setURL(`${userAvatar}`)
                 .setThumbnail(`${userAvatar}`)
