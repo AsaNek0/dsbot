@@ -1,4 +1,4 @@
-const { ContextMenuCommandBuilder, ApplicationCommandType, EmbedBuilder, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require("discord.js");
+const { ContextMenuCommandBuilder, ApplicationCommandType, EmbedBuilder} = require("discord.js");
 
 module.exports = {
   data: new ContextMenuCommandBuilder()

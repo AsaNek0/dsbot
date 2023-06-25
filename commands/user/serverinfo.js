@@ -1,4 +1,4 @@
-const { EmbedBuilder, SlashCommandBuilder, GuildMember,} = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder,} = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -7,7 +7,7 @@ module.exports = {
 
         async execute (interaction) {
 
-            let user = interaction.user;
+//            let user = interaction.user;
             let guildAvatar = interaction.guild.iconURL({ ditamic: true, size: 4096 })
             let guild = interaction.guild;
 
