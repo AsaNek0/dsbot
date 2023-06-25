@@ -30,12 +30,18 @@ for (const folder of commandFolders) {
 	}
 }
 client.on(Events.InteractionCreate, async(interaction,client) => {
-    if (!interaction.isChatInputCommand()) {
+    if (interaction.isChatInputCommand()) {
         const command = interaction.client.commands.get(interaction.commandName);
-        await command.execute(interaction);
+        try {
+            await command.execute(interaction, client);
+        } catch (error) {
+            console.error(error);
+            return
+        }
 
-    } else if (interaction.isContextMenuCommand()) {
-        const contextCommand = client.commands.get(interaction.commandName);
+    }
+    if (interaction.isContextMenuCommand()) {
+        const contextCommand = interaction.client.commands.get(interaction.commandName);
         
         if(!contextCommand) return;
 
