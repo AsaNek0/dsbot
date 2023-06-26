@@ -18,7 +18,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setColor(0x74c7ec)
                 .setAuthor({ name: `Аватар пользователя: ${user.username} ` , url: userAvatar, })
-                .setFooter({text: `Вызвал: ${interaction.user.username}`,
+                .setFooter({text: ` Вызвал: ${interaction.user.username}`,
                             iconURL: interaction.user.displayAvatarURL({ ditamic: true, size: 4096 })})
                 .setTimestamp()
                 .setImage(`${userAvatar}`);
