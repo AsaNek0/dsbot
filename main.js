@@ -1,15 +1,14 @@
 const fs = require('node:fs');
-//const { request } = require('undici');
-//const { createCanvas, Image } = require('@napi-rs/canvas');
 const path = require('node:path');
-const { Client, Events, GatewayIntentBits, Collection, ActivityType} = require('discord.js');
+const { Client, Events, GatewayIntentBits, Collection, ActivityType, GuildMember, GuildMemberRoleManager} = require('discord.js');
 const { clientId, guildId, token } = require('./config.json');
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
 
 client.commands = new Collection();
 
 client.once(Events.ClientReady, c => {
     console.log(`Запущенa ${c.user.tag}`);
+    client.user.setPresence({ activities: [{ name: "nekolover.", type: ActivityType.Listening }], status: 'dnd' });
 });
 
 
@@ -29,6 +28,7 @@ for (const folder of commandFolders) {
 		}
 	}
 }
+
 client.on(Events.InteractionCreate, async(interaction,client) => {
     if (interaction.isChatInputCommand()) {
         const command = interaction.client.commands.get(interaction.commandName);
@@ -40,6 +40,7 @@ client.on(Events.InteractionCreate, async(interaction,client) => {
         }
 
     }
+
     if (interaction.isContextMenuCommand()) {
         const contextCommand = interaction.client.commands.get(interaction.commandName);
         
@@ -54,8 +55,10 @@ client.on(Events.InteractionCreate, async(interaction,client) => {
     }
 });
 
-client.once(Events.ClientReady, (c) => {
-    client.user.setPresence({ activities: [{ name: "nekolover.", type: ActivityType.Listening }], status: 'dnd' });
+client.on(Events.GuildMemberAdd, async (member) => {
+    var role = member.guild.roles.cache.find(role => role.id === "1127321395181912164");
+    member.roles.add(role);
+    console.log('User: ' + member.user.username + ' has joined the server!');
 });
 
 client.login(token);

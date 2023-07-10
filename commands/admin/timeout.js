@@ -9,6 +9,11 @@ module.exports = {
             .setName('user')
             .setDescription('Пользователь')
             .setRequired(true))
+        .addStringOption((option) =>
+          option
+            .setName("reason")
+            .setDescription("Причина")
+            .setRequired(true))
         .addIntegerOption((option) =>
             option
                 .setName("time")
@@ -23,6 +28,7 @@ module.exports = {
             const user = interaction.options.getUser('user');
             const member = await interaction.guild.members.fetch(user.id);
             const time = interaction.options.getInteger('time');
+            const reason = interaction.options.getString('reason') || "Не указано";
             
             const embedErr = new EmbedBuilder()
                 .setColor(0xf38ba8)
@@ -30,6 +36,16 @@ module.exports = {
                 .setFooter({text: `Вызвал: ${interaction.user.username}`,
                             iconURL: interaction.user.displayAvatarURL({ ditamic: true, size: 4096 })})
                 .setTimestamp()
+
+            const embed = new EmbedBuilder()
+                .setColor(0xf38ba8)
+                .setDescription(`${user.username}: был отправлен думать на ${time} минут, по причине: ${reason}`)
+                .setFooter({text: `Вызвал: ${interaction.user.username}`,
+                            iconURL: interaction.user.displayAvatarURL({ ditamic: true, size: 4096 })})
+                .setTimestamp()
+
+            const embedDM = new EmbedBuilder()
+                .setDescription(`Модератор ${interaction.user.username} выдал вам таймаут на ${time} минут, по причине: ${reason}`)
             
             if ( member.roles.highest.position >= interaction.member.roles.highest.position )
                 return interaction.reply({
@@ -39,7 +55,7 @@ module.exports = {
             
             member.timeout(time * 60 * 1000)
 
-            interaction.reply({ content: `${user.username}: был отправлен думать на ${time} минут:` , ephemeral: true });
-            await member.user.send(`${member}`)
+            interaction.reply({ embeds: [embed] , ephemeral: true });
+            await member.user.send({embeds : [embedDM]})
     },
 };
