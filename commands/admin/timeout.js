@@ -2,24 +2,27 @@ const { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits, GuildMember, } =
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('kick')
-        .setDescription('Исключает пользователя с сервера.')
+        .setName('timeout')
+        .setDescription('Отправляет пользователя подумать над своим поведением')
         .addUserOption((option) =>
           option
             .setName('user')
             .setDescription('Пользователь')
             .setRequired(true))
-        .addStringOption(option =>
+        .addIntegerOption((option) =>
             option
-                .setName("reason")
-                .setDescription("Причина"))
+                .setName("time")
+                .setDescription("Время в минутах")
+                .setRequired(true)
+                .setMinValue(1)
+                .setMaxValue(40320))
         .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers),
 
         async execute (interaction) {
 
             const user = interaction.options.getUser('user');
             const member = await interaction.guild.members.fetch(user.id);
-            const reason = interaction.options.getString('reason') || "Не указано";
+            const time = interaction.options.getInteger('time');
             
             const embedErr = new EmbedBuilder()
                 .setColor(0xf38ba8)
@@ -27,7 +30,6 @@ module.exports = {
                 .setFooter({text: `Вызвал: ${interaction.user.username}`,
                             iconURL: interaction.user.displayAvatarURL({ ditamic: true, size: 4096 })})
                 .setTimestamp()
-
             
             if ( member.roles.highest.position >= interaction.member.roles.highest.position )
                 return interaction.reply({
@@ -35,8 +37,9 @@ module.exports = {
                     ephemeral: true
                 });
             
-            await member.timeout(5 * 60 * 1000)
+            member.timeout(time * 60 * 1000)
 
-            await interaction.reply({ content: `${user.username}: был исключён по причине: ${reason}` , ephemeral: true });
+            interaction.reply({ content: `${user.username}: был отправлен думать на ${time} минут:` , ephemeral: true });
+            await member.user.send(`${member}`)
     },
 };
