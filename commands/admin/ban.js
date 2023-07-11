@@ -20,9 +20,6 @@ module.exports = {
             const user = interaction.options.getUser('user');
             const member = await interaction.guild.members.fetch(user.id);
             const reason = interaction.options.getString('reason') || "Не указана";
-            console.log(
-                GuildMember,
-                user.username);
             
             const embedErr = new EmbedBuilder()
                 .setColor(0xf38ba8)
@@ -30,6 +27,18 @@ module.exports = {
                 .setFooter({text: `Вызвал: ${interaction.user.username}`,
                             iconURL: interaction.user.displayAvatarURL({ ditamic: true, size: 4096 })})
                 .setTimestamp()
+
+            const embedDM = new EmbedBuilder()
+                .setDescription(`Модератор ${interaction.user.username} забанил вас по причине: ${reason}`)
+                .setTimestamp()
+
+            const embed = new EmbedBuilder()
+                .setColor(0xa6e3a1)
+                .setDescription(`${user.username}: был исключён по причине: ${reason}`)
+                .setFooter({text: `Вызвал: ${interaction.user.username}`,
+                            iconURL: interaction.user.displayAvatarURL({ ditamic: true, size: 4096 })})
+                .setTimestamp()
+
 
             
             if ( member.roles.highest.position >= interaction.member.roles.highest.position )
@@ -40,6 +49,13 @@ module.exports = {
             
             await member.ban(reason)
 
-            await interaction.reply({ content: `${user.username}: был забанен по причине: ${reason}` , ephemeral: true });
+            member.user.send({
+                embeds : [embedDM]
+            })
+
+            await interaction.reply({ 
+                embeds: [embed],
+                ephemeral: true
+            });
     },
 };

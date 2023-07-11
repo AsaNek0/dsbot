@@ -28,6 +28,17 @@ module.exports = {
                             iconURL: interaction.user.displayAvatarURL({ ditamic: true, size: 4096 })})
                 .setTimestamp()
 
+            const embedDM = new EmbedBuilder()
+                .setDescription(`Модератор ${interaction.user.username} выдал вам исключил вас, по причине: ${reason}`)
+                .setTimestamp()
+
+            const embed = new EmbedBuilder()
+                .setColor(0xa6e3a1)
+                .setDescription(`${user.username}: был исключён по причине: ${reason}`)
+                .setFooter({text: `Вызвал: ${interaction.user.username}`,
+                            iconURL: interaction.user.displayAvatarURL({ ditamic: true, size: 4096 })})
+                .setTimestamp()
+
             
             if ( member.roles.highest.position >= interaction.member.roles.highest.position )
                 return interaction.reply({
@@ -35,8 +46,15 @@ module.exports = {
                     ephemeral: true
                 });
             
-            await member.timeout(5 * 60 * 1000)
+            await member.kick(reason)
 
-            await interaction.reply({ content: `${user.username}: был исключён по причине: ${reason}` , ephemeral: true });
+            member.user.send({
+                embeds : [embedDM]
+            })
+            
+            await interaction.reply({ 
+                embeds: [embed],
+                ephemeral: true
+            });
     },
 };

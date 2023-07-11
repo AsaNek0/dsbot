@@ -1,7 +1,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Events, GatewayIntentBits, Collection, ActivityType, GuildMember, GuildMemberRoleManager} = require('discord.js');
+const { Client, Events, GatewayIntentBits, Collection, ActivityType, EmbedBuilder, GuildChannelManager, ChannelManager} = require('discord.js');
 const { clientId, guildId, token } = require('./config.json');
+const { channel } = require('node:diagnostics_channel');
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
 
 client.commands = new Collection();
