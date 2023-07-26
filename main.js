@@ -73,8 +73,10 @@ client.on(Events.GuildMemberAdd, async (member) => {
 });
 
 client.on(Events.MessageCreate, async (message) => {
-    
-    if(message.channel.id === "1133424504283070515");
+    if(message.channel.id === "1133424504283070515") {
+        
+    }
+
 
 });
 
