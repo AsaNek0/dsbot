@@ -25,7 +25,7 @@ module.exports = {
             });
 
             const embed = new EmbedBuilder()
-                .setColor('#cdd6f4')
+                .setColor('cdd6f4')
 
 
             await channel.bulkDelete(amount).then(messages => {

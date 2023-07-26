@@ -39,7 +39,7 @@ module.exports = {
             c.fillText(member.displayName, 210, 135);
 
             c.font = '25px FiraCode Nerd Font';
-            c.fillStyle = '#ffffff';
+            c.fillStyle = 'ffffff';
             c.fillText(user.displayName, 210, 165);
 
             c.beginPath();

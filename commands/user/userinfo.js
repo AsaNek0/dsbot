@@ -36,7 +36,7 @@ module.exports = {
                 if (badge === 'VerifiedBot') badges.push('<:activedeveloper:1122923369734606888>');
             }));
 
-            if (user.tag === `${user.username}#0`) badges.push('<:Knownas:1122999154663243816>');
+            if (user.tag === `${user.username}0`) badges.push('<:Knownas:1122999154663243816>');
 
             const embed = new EmbedBuilder()
                 .setColor(0x74c7ec)
