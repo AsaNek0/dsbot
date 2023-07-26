@@ -18,7 +18,7 @@ client.commands = new Collection();
 
 client.once(Events.ClientReady, c => {
     console.log(`Запущенa ${c.user.tag}`);
-    client.user.setPresence({ activities: [{ name: "nekolover.", type: ActivityType.Listening }], status: 'invisible' });
+    client.user.setPresence({ activities: [{ name: "nekolover.", type: ActivityType.Listening }], status: 'online' });
 });
 
 const folders = fs.readdirSync('./event');
