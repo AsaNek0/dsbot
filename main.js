@@ -1,18 +1,28 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Events, GatewayIntentBits, Collection, ActivityType, EmbedBuilder, GuildChannelManager, ChannelManager} = require('discord.js');
+const { Client, Events, GatewayIntentBits, Collection, ActivityType, EmbedBuilder, GuildChannelManager, AttachmentBuilder, ChannelManager, Partials} = require('discord.js');
 const { clientId, guildId, token } = require('./config.json');
 const { channel } = require('node:diagnostics_channel');
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
+const { Guilds, GuildMembers, GuildMessages, GuildPresences } = GatewayIntentBits;
+//
+
+
+
+const { User, Message, GuildMember, ThreadMember, Channel } = Partials;
+
+const client = new Client({
+    intents: [Guilds, GuildMembers, GuildMessages, GuildPresences],
+    partials: [User, Message, GuildMember, ThreadMember, Channel]
+});
 
 client.commands = new Collection();
 
 client.once(Events.ClientReady, c => {
     console.log(`Запущенa ${c.user.tag}`);
-    client.user.setPresence({ activities: [{ name: "nekolover.", type: ActivityType.Listening }], status: 'dnd' });
+    client.user.setPresence({ activities: [{ name: "nekolover.", type: ActivityType.Listening }], status: 'invisible' });
 });
 
-
+const folders = fs.readdirSync('./event');
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
 
@@ -57,9 +67,20 @@ client.on(Events.InteractionCreate, async(interaction,client) => {
 });
 
 client.on(Events.GuildMemberAdd, async (member) => {
-    var role = member.guild.roles.cache.find(role => role.id === "1127321395181912164");
+    var role = member.guild.roles.cache.find(role => role.id === "1129083122802245705");
     member.roles.add(role);
     console.log('User: ' + member.user.username + ' has joined the server!');
 });
 
-client.login(token);
+client.on(Events.MessageCreate, async (message) => {
+    
+    if(message.channel.id === "1133424504283070515");
+
+});
+
+const { loadEvents } = require('./event.js');
+
+client.login(token).then(() => {
+    loadEvents(client);
+//    loadCommands(client);
+});

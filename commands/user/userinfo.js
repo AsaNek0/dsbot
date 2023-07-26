@@ -66,6 +66,7 @@ module.exports = {
                     { name: 'Имя:', value: `${user} ${badges.join('')}` },
                     { name: 'Добавлен в:', value: `<t:${parseInt(member.joinedAt / 1000)}:F>`, inline: true },
                     { name: 'Создан:', value: `<t:${parseInt(user.createdAt / 1000)}:R>`, inline: true },
+                    //{ name: 'Создан:', value: `${}`}
                 )
                 .setFooter({text: `Вызвал: ${interaction.user.username}`,
                             iconURL: interaction.user.displayAvatarURL({ ditamic: true, size: 32 })})
