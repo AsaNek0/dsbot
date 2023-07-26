@@ -1,4 +1,6 @@
 const { EmbedBuilder, SlashCommandBuilder,} = require("discord.js");
+const { QuickDB } = require("quick.db");
+const db = new QuickDB();
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,6 +18,12 @@ module.exports = {
             let userAvatar = user.displayAvatarURL({ ditamic: true, size: 4096 })
             let member = await interaction.guild.members.fetch(user.id);
             let flags = user.flags.toArray();
+
+            let userlvl = await db.get(`${user.id}_xp`) / 1000 + 1
+            let lvl = Math.floor(userlvl)
+            
+
+            console.log(userlvl)
 
         
             let badges = [];
@@ -49,6 +57,7 @@ module.exports = {
                     // { name: 'Бейджики: ', value: ``, inline: true },
                     { name: 'Участник c:', value: `<t:${parseInt(member.joinedAt / 1000)}:F>`, inline: true },
                     { name: 'Зарегался:', value: `<t:${parseInt(user.createdAt / 1000)}:R>`, inline: true },
+                    { name: 'Уровень:', value: `${lvl}`, inline: true },
                 )
                 .setFooter({text: `Вызвал: ${interaction.user.username}`,
                             iconURL: interaction.user.displayAvatarURL({ ditamic: true, size: 32 })})
@@ -74,7 +83,7 @@ module.exports = {
             
             if ( user.bot === true ) 
                 return await interaction.reply({embeds: [embedBot]});
-            2
+
             await interaction.reply({embeds: [embed],});
 
             

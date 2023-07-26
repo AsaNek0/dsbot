@@ -4,9 +4,8 @@ const { Client, Events, GatewayIntentBits, Collection, ActivityType, EmbedBuilde
 const { clientId, guildId, token } = require('./config.json');
 const { channel } = require('node:diagnostics_channel');
 const { Guilds, GuildMembers, GuildMessages, GuildPresences } = GatewayIntentBits;
-//
-
-
+const { QuickDB } = require("quick.db");
+const db = new QuickDB();
 
 const { User, Message, GuildMember, ThreadMember, Channel } = Partials;
 
@@ -73,8 +72,13 @@ client.on(Events.GuildMemberAdd, async (member) => {
 });
 
 client.on(Events.MessageCreate, async (message) => {
-    if(message.channel.id === "1133424504283070515") {
+      
+    if(message.channel.id === "1129167934024069130") {
+
+        const random = Math.floor(Math.random() * (50 - 20) + 20);
         
+        const usid = message.author.id
+        await db.add(`${usid}_xp`, random);
     }
 
 

@@ -21,7 +21,6 @@ module.exports = {
                 .setThumbnail(`${guildAvatar}`)
                 .addFields(
                     { name: 'Создатель:', value: `${owner}` },
-//                    { name: 'На сервере c:', value: `<t:${parseInt(guild.createdAt / 1000)}:R>`, inline: true },
                     { name: 'Cоздан:', value: `<t:${parseInt(guild.createdAt / 1000)}:R>`, inline: true },
                     { name: 'Участников:', value: `${guild.memberCount}`, inline: true })
                 .setFooter({text: `Вызвал: ${interaction.user.username}`,
