@@ -3,3 +3,5 @@ config.json
 DB.sqlite
 package-lock.json
 json.sqlite
+json.sqlite-journal
+json.sqlite

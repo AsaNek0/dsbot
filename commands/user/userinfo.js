@@ -19,7 +19,7 @@ module.exports = {
             let member = await interaction.guild.members.fetch(user.id);
             let flags = user.flags.toArray();
 
-            let userlvl = await db.get(`${user.id}_xp`) / 1000 + 1
+            let userlvl = await db.get(`${user.id}.xp`) / 1000 + 1
             let lvl = Math.floor(userlvl)
             
 

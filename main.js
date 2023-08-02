@@ -66,19 +66,35 @@ client.on(Events.InteractionCreate, async(interaction,client) => {
 });
 
 client.on(Events.GuildMemberAdd, async (member) => {
+
+    const chID = '1134182826221260811'
+
     var role = member.guild.roles.cache.find(role => role.id === "1129083122802245705");
+    var channel = member.guild.channels.cache.get(chID)
+    channel.send(`${member.user.username} залетів на сервер`)
     member.roles.add(role);
     console.log('User: ' + member.user.username + ' has joined the server!');
 });
 
+client.on(Events.GuildMemberRemove, async (member) => {
+
+    const chID = '1134182826221260811'
+
+    var channel = member.guild.channels.cache.get(chID)
+    channel.send(`${member.user.username} випригнув у вікно`)
+    console.log('User: ' + member.user.username + ' has leave from the server!');
+});
+
 client.on(Events.MessageCreate, async (message) => {
+    
+    
       
     if(message.channel.id === "1129167934024069130") {
 
         const random = Math.floor(Math.random() * (50 - 20) + 20);
         
         const usid = message.author.id
-        await db.add(`${usid}_xp`, random);
+        await db.add(`${usid}.xp`, random);
     }
 
 
